@@ -12,47 +12,47 @@ I use Python 3.5 so you must to compile this version (or you can change code for
 
 Copy file ```raspberry.py``` to your raspberry Pi.
 
-You must to find on what port connected arduino and GPS module.<br />
+You must find what the port where the arduino and GPS module are connected.<br />
 In Raspberry Pi 2 dafault RX/TX port is ```/dev/ttyAMA0```. But also you must to make some changes in system files ([See here](https://learn.adafruit.com/adafruit-ultimate-gps-on-the-raspberry-pi?view=all)).
 
-When you find port just change there in raspberry.py:
+When you find the port, just change it in raspberry.py:
 ```python
 GPS_port = '/dev/ttyAMA0'
 arduino_port = '/dev/ttyUSB1'
 ```
 
-**If you dont use GPS, just leave ```GPS_port``` empty.**
+**If you dont use a GPS, just leave ```GPS_port``` empty.**
 
 ### Arduino
-For compile arduino code you must to download and install [SimpleTimer Library](http://playground.arduino.cc/Code/SimpleTimer), because we use it for speed calculation.
+To compile arduino code you must to download and install [SimpleTimer Library](http://playground.arduino.cc/Code/SimpleTimer), because we use it for speed calculation.
 
-If you connected sensors to different port on arduino just change it in ```arduino.ino```.
-Next upload file ```arduino.ino``` to you arduino board.
+If you connected sensors to different ports on the arduino, just change it in ```arduino.ino```.
+Next upload file ```arduino.ino``` to your arduino board.
 
-I recommend to install Arduino IDE to raspberry Pi. You can do it by print ```apt install arduino ``` in terminal.
+I recommend you install the Arduino IDE to your Raspberry Pi. You can do it by typing ```sudo apt install arduino ``` in a terminal on the Raspberry Pi.
 
-**Dont worry if you have different sensors or use your own arduino code. Script on Raspberry Pi justt add all received data from adruino to final array.**
+**Dont worry if you have different sensors or use your own arduino code. Script on Raspberry Pi just adds all received data from arduino to final array.**
 
-After you connected all sensors to arduino board and arduino board to raspberry Pi you can run ```python3 raspberry.py``` on your raspberry Pi.
+After you connected all sensors to arduino board and arduino board to Raspberry Pi you can run ```python3 raspberry.py``` on your Raspberry Pi.
 
 ## Errors
 ### Please check arduino port!
-It means that script can not connect to arduino on this port. Probably you forget to change arduino port.
-If you your arduino connect to write port, but message still appear, plese create issue.
+It means that script can not connect to arduino on this port. Probably you forget to change arduino port in ```arduino.ino```.
+If you your arduino is connected to the right port, but the error still appears, plese create an issue.
 
 ### Please check GPS port!
-It means that script can not connect to GPS module on this port. Probably you forget to change GPS module port.
-If you your GPS module connect to write port, but message still appear, plese create issue.
+It means that script can not connect to GPS module on this port. Probably you forget to change GPS module port in ```arduino.ino```.
+If you your GPS module is connected to the right port, but the error still appears, plese create an issue.
 
 ### Please check your GPS module.
-This error can appear if your GPS module use other baud rate (not 9600). Please check your GPS module boud rate and just change GPS boud rate on line 24: 
+This error can appear if your GPS module uses a baud rate other than 9600. Please check your GPS module boud rate and change the GPS boud rate on line 24: 
 ```python
 self.gps_module = serial.Serial(GPS_port, 9600)
 ```
 
 ## Data format
-Default data format is ```[adruino, [gps], time]```.
-If you dont have GPS module data format will be ```[adruino, time]```.
+Default data format is ```[arduino, [gps], time]```.
+If you dont have a GPS module data format will be ```[arduino, time]```.
 
 ### Arduino (String)
 Script split (```","```) received string from arduino.
